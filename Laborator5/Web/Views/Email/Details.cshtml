@@ -1,0 +1,47 @@
+﻿@using MimeKit
+@model MimeKit.MimeMessage
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <a href="@Url.Action("Inbox", "Email")" class="btn btn-secondary mt-3">Back to Inbox</a>
+    <a href="@Url.Action("DownloadEmail", "Email", new { id = Model.MessageId })" class="btn btn-secondary mt-3">Download</a>
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Email Details</h5>
+        </div>
+        <div class="card-body">
+            <h6><strong>From:</strong> @Model.From</h6>
+            <h6><strong>To:</strong> @Model.To</h6>
+            <h6><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd HH:mm")</h6>
+            <h5 class="mt-3">@Model.Subject</h5>
+            <hr>
+            <p>@Html.Raw(Model.HtmlBody ?? Model.TextBody)</p>
+            <h6><strong>Attachment:</strong></h6>
+            @foreach (var attachment in Model.Attachments)
+            {
+                if (attachment is MimePart mimePart)
+                {
+                    <div>@mimePart.FileName</div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

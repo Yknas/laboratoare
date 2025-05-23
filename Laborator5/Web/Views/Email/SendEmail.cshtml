@@ -1,0 +1,35 @@
+﻿@model Web.Models.EmailModel
+
+@{
+    ViewBag.Title = "Send Email";
+}
+
+<h2>Send Email</h2>
+
+<form asp-action="SendEmail" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="To"></label>
+        <input asp-for="To" class="form-control" />
+        <span asp-validation-for="To" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Subject"></label>
+        <input asp-for="Subject" class="form-control" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Body"></label>
+        <textarea asp-for="Body" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Body" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Attachments</label>
+        <input type="file" asp-for="Attachments" class="form-control" multiple />
+        <span asp-validation-for="Attachments" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Send</button>
+</form>
